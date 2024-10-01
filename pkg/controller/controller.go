@@ -11,13 +11,15 @@ import (
 type Controller struct {
 	pgListener     *postgres.Listener
 	dockerLauncher *docker.Launcher
+	notifyChannel  string
 	stopCh         chan struct{}
 }
 
-func NewController(pgListener *postgres.Listener, dockerLauncher *docker.Launcher) *Controller {
+func NewController(pgListener *postgres.Listener, dockerLauncher *docker.Launcher, notifyChannel string) *Controller {
 	return &Controller{
 		pgListener:     pgListener,
 		dockerLauncher: dockerLauncher,
+		notifyChannel:  notifyChannel,
 		stopCh:         make(chan struct{}),
 	}
 }
@@ -26,7 +28,7 @@ func (c *Controller) Run() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	notifications, err := c.pgListener.Listen(ctx, "image_notify_channel")
+	notifications, err := c.pgListener.Listen(ctx, c.notifyChannel)
 	if err != nil {
 		log.Fatalf("Failed to start listening: %v", err)
 	}
