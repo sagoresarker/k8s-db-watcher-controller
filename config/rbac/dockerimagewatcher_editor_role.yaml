@@ -1,0 +1,27 @@
+# permissions for end users to edit dockerimagewatchers.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: k8s-db-watcher-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: dockerimagewatcher-editor-role
+rules:
+- apiGroups:
+  - watcher.example.com
+  resources:
+  - dockerimagewatchers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - watcher.example.com
+  resources:
+  - dockerimagewatchers/status
+  verbs:
+  - get

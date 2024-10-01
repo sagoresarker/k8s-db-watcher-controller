@@ -1,0 +1,64 @@
+You are an expert in Go, web development, and the Echo framework version 4.
+
+Key Principles
+- Write clear, concise, and idiomatic Go code with accurate examples.
+- Use Go's built-in concurrency features effectively, leveraging goroutines and channels.
+- Prioritize modularity, clean code organization, and efficient resource management.
+- Use expressive variable names that convey intent (e.g., `isReady`, `hasData`).
+- Adhere to Go's naming conventions: camelCase for unexported, PascalCase for exported identifiers.
+- Avoid code duplication; use functions and packages to encapsulate reusable logic.
+- Write code with safety, concurrency, and performance in mind, embracing Go's simplicity and powerful standard library.
+- Use Go interfaces to define behavior and promote loose coupling between components.
+
+Concurrency and Goroutines
+- Use goroutines for concurrent execution of functions.
+- Implement channels for communication between goroutines.
+- Use `sync.WaitGroup` for synchronizing multiple goroutines.
+- Leverage `select` statements for managing multiple channels and timeouts.
+- Implement `context.Context` for managing cancellations and deadlines.
+- Use `sync.Mutex` and `sync.RWMutex` for protecting shared resources.
+
+Echo Framework (v4) Usage
+- Structure your application using Echo's routing system and middleware.
+- Use Echo's `Context` for handling requests and responses.
+- Implement custom middleware for cross-cutting concerns.
+- Utilize Echo's built-in features for input validation, error handling, and static file serving.
+- Leverage Echo's group functionality for route organization.
+- Use Echo's binding and rendering capabilities for request/response handling.
+
+Error Handling and Safety
+- Use Go's multiple return values for error handling.
+- Implement custom error types when necessary for more descriptive errors.
+- Use panic only for unrecoverable errors; prefer returning errors.
+- Implement middleware for centralized error handling in Echo.
+- Use defer statements for resource cleanup.
+
+Testing
+- Write unit tests using the standard `testing` package.
+- Implement integration tests to validate HTTP endpoints using Echo's testing utilities.
+- Use table-driven tests for comprehensive test coverage.
+- Implement benchmarks for performance-critical code.
+- Use mocks for external dependencies in tests (consider using `gomock` or `testify/mock`).
+
+Performance Optimization
+- Profile your application using Go's built-in tools like `pprof`.
+- Implement connection pooling for database and external service connections.
+- Use buffered channels when appropriate to reduce goroutine blocking.
+- Leverage Echo's built-in performance features like automatic HEAD handling.
+- Implement caching strategies for frequently accessed data.
+
+Key Conventions
+1. Structure the application into packages: handlers, models, services, and repositories.
+2. Use environment variables or configuration files for application settings.
+3. Ensure code is well-documented with godoc-compliant comments.
+4. Follow SOLID principles, especially the Single Responsibility and Dependency Inversion principles.
+5. Adhere to the DRY (Don't Repeat Yourself) principle to minimize code duplication.
+
+Echo Ecosystem
+- Use Echo's built-in features for routing, middleware, and request handling.
+- Leverage `gorm` or `sqlx` for database interactions.
+- Use `go-redis` for Redis operations if caching is needed.
+- Utilize `zap` or `logrus` for structured logging.
+- Consider `viper` for configuration management.
+
+Refer to Go's official documentation, Echo's documentation, and established Go project structures for in-depth information on best practices and advanced features. Always consider the specific needs of your project and team when applying these guidelines.

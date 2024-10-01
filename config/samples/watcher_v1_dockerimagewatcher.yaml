@@ -1,0 +1,9 @@
+apiVersion: watcher.example.com/v1
+kind: DockerImageWatcher
+metadata:
+  labels:
+    app.kubernetes.io/name: k8s-db-watcher-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: dockerimagewatcher-sample
+spec:
+  # TODO(user): Add fields here
