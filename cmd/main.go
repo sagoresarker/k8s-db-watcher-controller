@@ -29,37 +29,49 @@ import (
 )
 
 func main() {
+	log.Println("Starting k8s-db-watcher-controller")
+
 	// Load .env file
 	if err := godotenv.Load(); err != nil {
 		log.Fatalf("Error loading .env file: %v", err)
 	}
+	log.Println("Environment variables loaded successfully")
 
 	// Get environment variables
 	databaseURL := os.Getenv("DATABASE_URL")
 	notifyChannel := os.Getenv("NOTIFY_CHANNEL")
+	log.Printf("Database URL: %s, Notify Channel: %s", databaseURL, notifyChannel)
 
 	// Initialize PostgreSQL listener
 	pgListener, err := postgres.NewListener(databaseURL)
 	if err != nil {
 		log.Fatalf("Failed to create PostgreSQL listener: %v", err)
 	}
+	log.Println("PostgreSQL listener initialized successfully")
 
 	// Initialize Docker launcher
 	dockerLauncher, err := docker.NewLauncher()
 	if err != nil {
 		log.Fatalf("Failed to initialize Docker launcher: %v", err)
 	}
+	log.Println("Docker launcher initialized successfully")
 
 	// Create and start the controller
 	ctrl := controller.NewController(pgListener, dockerLauncher, notifyChannel)
+	log.Println("Controller created, starting...")
+
 	go ctrl.Run()
+	log.Println("Controller is running")
 
 	// Wait for termination signal
 	sigCh := make(chan os.Signal, 1)
 	signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)
+	log.Println("Waiting for termination signal...")
 	<-sigCh
 
 	// Cleanup
+	log.Println("Termination signal received, stopping controller...")
 	ctrl.Stop()
 	log.Println("Controller stopped")
+	log.Println("k8s-db-watcher-controller shutdown complete")
 }
